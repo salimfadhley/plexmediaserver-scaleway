@@ -7,6 +7,8 @@ services:
     environment:
     - TZ=<timezone>
     - PLEX_CLAIM=<claimToken>
+    - S3ACCESSKEY=<s3accesskey>
+    - S3SECRETKEY=<s3secretkey>
     network_mode: host
     volumes:
     - <path/to/plex/database>:/config

@@ -13,3 +13,7 @@ before_install:
 
 install:
   - ./build.sh
+
+
+script:
+  - ./publish.sh
