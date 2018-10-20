@@ -9,7 +9,7 @@ before_install:
 install:
 - "./build.sh"
 script:
-- echo $DOCKER_PASSWORD | docker login --username salimfadhley
+- docker login --password $DOCKER_PASSWORD --username salimfadhley
 - "./publish.sh"
 - docker logout
 env:
