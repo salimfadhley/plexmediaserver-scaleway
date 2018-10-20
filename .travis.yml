@@ -4,14 +4,27 @@ services:
 - docker
 python:
 - '3.6'
-before_install:
-- docker pull plexinc/pms-docker
-install:
-- "./build.sh"
+
 script:
-- docker login --password ${DOCKER_PASSWORD} --username salimfadhley
-- "./publish.sh"
-- docker logout
+  - ./build.sh
+
+
+after_script:
+  - docker images
+
+
+before_deploy:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+
+after_deploy:
+  - docker logout
+
+deploy:
+  provider: script
+  script:
+  - "./publish.sh"
+
 env:
   matrix:
-    secure: 2V5HL5SQc71pWD2POv41jh/S0exehxcy+pV7GY11l2g0r8BELsU413+mP6sifHGcjJJSfZfOuou2CEuUdFfAoMzWKmt85jSefOqXdXQhgyUxacbxPuu6Jr9hdXO+8t/BR4cIimGyk/3WUh1kyrNunquUE7Dmpr1AIGnIDwithrrgrQr7X9eb2I3IXDRVhnERfMQJVHx/4t8OT/CYh5NFcdCQLGf9YSz74eV1ycJ7Lh3R52bw/irnKF2ZbiX6JcK8xZKqUFlM8dzFCkBxgYlaiEYFn9Zj6N5XCT+Z9GSm+5oFb5HKIgkMG/LjaD1b1ak5e2qqYjY6MxkQAmLbsPyVwGN/bri1waUOOsaGa50uJ/G5cnQGmPatWpaUXyNQuRQCxYzWBnlKIThO2w6hvfvnURfkuQ9OMigQf7lbr1Bd6S3BUqQgnplYWgc/B4LnoYq5QScK2IxVbEFAIdF6GmEq83MVHm/tSQVEZyzdLjivkkYSLt9NUqUn5trpAjQW2WyFRHIv8OYvDolQ5YexMLHBRkJO/lZg798QvGs6Pwsfdx2ra7SC0gxepR9PB86b09N36u52ztnzW9PwP4mej7baWyDjLFJfEcPQLwfeT5394OdcHs4FIy1zU1xPTL21EzjUYEEYYE8rL+e1pKATgtJSY0nUYmJO2EbUjBAguveLFSc=
+  - secure: 2V5HL5SQc71pWD2POv41jh/S0exehxcy+pV7GY11l2g0r8BELsU413+mP6sifHGcjJJSfZfOuou2CEuUdFfAoMzWKmt85jSefOqXdXQhgyUxacbxPuu6Jr9hdXO+8t/BR4cIimGyk/3WUh1kyrNunquUE7Dmpr1AIGnIDwithrrgrQr7X9eb2I3IXDRVhnERfMQJVHx/4t8OT/CYh5NFcdCQLGf9YSz74eV1ycJ7Lh3R52bw/irnKF2ZbiX6JcK8xZKqUFlM8dzFCkBxgYlaiEYFn9Zj6N5XCT+Z9GSm+5oFb5HKIgkMG/LjaD1b1ak5e2qqYjY6MxkQAmLbsPyVwGN/bri1waUOOsaGa50uJ/G5cnQGmPatWpaUXyNQuRQCxYzWBnlKIThO2w6hvfvnURfkuQ9OMigQf7lbr1Bd6S3BUqQgnplYWgc/B4LnoYq5QScK2IxVbEFAIdF6GmEq83MVHm/tSQVEZyzdLjivkkYSLt9NUqUn5trpAjQW2WyFRHIv8OYvDolQ5YexMLHBRkJO/lZg798QvGs6Pwsfdx2ra7SC0gxepR9PB86b09N36u52ztnzW9PwP4mej7baWyDjLFJfEcPQLwfeT5394OdcHs4FIy1zU1xPTL21EzjUYEEYYE8rL+e1pKATgtJSY0nUYmJO2EbUjBAguveLFSc=
+  - secure: YneFRHQ/YqRYqRLNlYW/zcl+YdRjC3ciIA3WtevIn9JSfGOvu4QZvoGe6twNF8OUY7f2OQ6I8NEoe/QLFgZN6y47TNfIyYywI23fTpyrE9/oyQz7qeB1mn3/2zWsjnROLFOq6AX0QjerPM34OmEphe8cUusVd8/9K1ZPOph4VC4PLFrao9P0TalTrlHxsY10higj/eIV18lJ4NfgulP5YEsu6VNcPLVw+VYq8NArKFKs9tL8Tfmzkt463FkWInY5sDz+BTmqnrRjQeKPt1rO1TA3AvpYBjvsG085I150iLL+0RyPqqVNxsPAI8BOLgUO5jgQbARTQ22IcW7uZ9rRi5NW5trhrOQs5BkR6tY8AaCva1GZPkRBFx141mK0uam8tpzvbyH9uKHNxpxP3lAefqpKaJidMCUV9auns5+gzTqdAvnjxrvE8OwDPgHuCFd0urTo9lFdntQtaHT/rpcAgFox25Qn6n88uIDJzZRyoXhNXpXcGGXrGSKa2oxT0wtVzs9/Ew2aXLGXZAvCc2Yaw808aChtUm3whGaL1PWwmQs8cSHPl8V+D4EC3dDX9HkykjDlJgfj+0IWBYmTVhddZfXW4oheAdkJlTFwaT6Pa7XUAWL64d3D/pGArsm7K3c2dnf9A1UgNm/PljWO8ZkwSgrD+/pzTfhXEvtA6JyPzUc=
