@@ -1,19 +1,17 @@
 language: python
 sudo: required
-
 services:
-  - docker
+- docker
 python:
 - '3.6'
-
-
 before_install:
-  - docker pull plexinc/pms-docker
-
-
+- docker pull plexinc/pms-docker
 install:
-  - ./build.sh
-
-
+- "./build.sh"
 script:
-  - ./publish.sh
+- echo $DOCKER_PASSWORD | docker login --username salimfadhley
+- "./publish.sh"
+- docker logout
+env:
+  global:
+    secure: S8dp8gs7n89uPoFIsJOyQkrvPGClXAA6nZQb9oZmZ1hfLQounR3KZc8rkm9Md4g1jjdOBxshf6/Ba9tyK6G5XQn8x0AvOhsqSNnnH8t+B8P+o610qgNBf1JzlgRYU8vvNSSXoVHJ4olz2920VJwfBz4CKgAxejIplJRGC82+sgjCM/FNylCRNOseg0cNXEuvxoi8pqLmGC4GfDp5r8EUQbTKP1cSgivadHBd8pO0DAWlr8+xK6pgdgOJhnPnUic58v1O+Ybsy9gzDllf2xGqJspYtR9F8ZQfBxN0cj2gL6sBEKvh9rhb/S9RBMuElbnAA7uv4MnuitvlDFfvIFCutcCYHXWyCBOu04Tfem0kReF0BEf5wFrL0+rp5kigEj7JZREv69Ovl1TA2hQ/Y9X7GzXA5bkf2kS6KEYSIchpUB8JXssZUG43yMGzVBiffXI6CKGfAXJGOIHqGoTHt8ndOhotL5eglEacnpmVMUtWRn5MoAwAdLBpi16N59bmGb+MqY2E6dXCRCkcu+IO8efd3YlG9klG0kqpChTPnQSXCzMhNIUmhsKk6Oln8gka7fYo1UE/aTXPqFK8qPHcV5GZzaPFf0zBmeQS4Fi5/aWerh5MGlhjxYxhdPYrEW+8y0eX3Cdh4g2o1LfVlCBZJTo+v46wk5/PFSh0lSlO4ZS2SSQ=
